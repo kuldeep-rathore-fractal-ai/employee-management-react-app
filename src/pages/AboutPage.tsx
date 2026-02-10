@@ -1,34 +1,56 @@
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Row, Col, ListGroup } from "react-bootstrap";
 
 const AboutPage = () => {
-    return (
-        <Container className="mt-4">
-            <Card className="shadow-sm bg-light">
-                <Card.Body>
-                    <Card.Title className="fw-bold">About Us</Card.Title>
-                    <Card.Text>
-                        Welcome to the <span className="fw-bold">Employee Management System</span>.
-                        This application is designed to simplify and streamline employee
-                        information handling within an organization.
-                    </Card.Text>
-                    <Card.Text>
-                        The system provides full <span className="fw-bold">CRUD</span> functionality:
-                    </Card.Text>
-                    <ul>
-                        <li><span className="fw-bold">Create</span> – Add new employee records easily.</li>
-                        <li><span className="fw-bold">Read</span> – View detailed employee information.</li>
-                        <li><span className="fw-bold">Update</span> – Edit and update employee details.</li>
-                        <li><span className="fw-bold">Delete</span> – Remove employees when necessary.</li>
-                    </ul>
-                    <Card.Text>
-                        Our goal is to provide a user-friendly interface that ensures efficient
-                        management of employee data, helping organizations maintain accurate
-                        records and improve productivity.
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-        </Container>
-    );
+  return (
+    <Container className="py-4">
+      <Row className="justify-content-center">
+        <Col xs={12} md={10} lg={8}>
+          <Card className="shadow-sm border-0">
+            <Card.Body className="p-4 p-md-5">
+              <Card.Title className="fw-bold fs-3 mb-3 text-dark">
+                About Employee Management System
+              </Card.Title>
+              <Card.Text className="text-muted mb-3">
+                The <span className="fw-semibold">Employee Management System</span> is a
+                modern React-based application designed to help organizations keep their
+                employee records clean, organized, and always up to date.
+              </Card.Text>
+              <Card.Text className="text-muted mb-3">
+                This capstone project demonstrates a complete{" "}
+                <span className="fw-semibold">CRUD workflow</span> for managing employees:
+              </Card.Text>
+
+              <ListGroup className="mb-3">
+                <ListGroup.Item>
+                  <strong>Create</strong> – Add new employees with key details like
+                  role, department, salary, and start date.
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Read</strong> – Browse a responsive grid of employees and
+                  drill into full profile details.
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Update</strong> – Edit existing employee information as roles
+                  and responsibilities evolve.
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Delete</strong> – Safely remove employees that are no longer
+                  part of the organization.
+                </ListGroup.Item>
+              </ListGroup>
+
+              <Card.Text className="text-muted">
+                The UI is built with <strong>React</strong> and{" "}
+                <strong>React-Bootstrap</strong>, focusing on clean layout, clear
+                typography, and mobile-friendly design—ideal for learning how to build
+                real-world CRUD applications in React.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default AboutPage;

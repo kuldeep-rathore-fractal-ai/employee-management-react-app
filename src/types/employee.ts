@@ -1,0 +1,11 @@
+export interface Employee {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  position: string;
+  department: string;
+  salary: number;
+  dateOfJoining: string;
+}
+

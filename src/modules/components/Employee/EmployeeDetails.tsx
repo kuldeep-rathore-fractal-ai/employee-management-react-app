@@ -1,6 +1,19 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  Container,
+  Card,
+  ListGroup,
+  Button,
+  Spinner,
+  Alert,
+  Modal,
+} from "react-bootstrap";
+import type { Employee } from "../../../types/employee";
+import {
+  deleteEmployeeById,
+  getEmployeeById,
+} from "../../../services/employeeService";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
@@ -8,31 +21,42 @@ const EmployeeDetails = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [employee, setEmployee] = useState<any>({});
+  const [employee, setEmployee] = useState<Employee | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const EMPLOYEE_API_URL = `http://localhost:3000/api/v1/employees/${id}`;
+  const fetchEmployee = () => {
+    setIsLoading(true);
+    setIsError(false);
 
-  useEffect(() => {
-    axios
-      .get(EMPLOYEE_API_URL)
-      .then((response) => {
-        setIsLoading(false);
-        setEmployee(response.data);
+    if (!id) {
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
+
+    getEmployeeById(id)
+      .then((data) => {
+        setEmployee(data);
       })
       .catch((error) => {
         console.error("Error fetching employee details:", error);
-        setIsLoading(false);
         setIsError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-  }, [EMPLOYEE_API_URL]);
+  };
+
+  useEffect(() => {
+    fetchEmployee();
+  }, [id]);
 
   const handleDelete = () => {
-    axios
-      .delete(EMPLOYEE_API_URL)
-      .then((response) => {
-        console.log("Employee deleted successfully:", response.data);
-        navigate("/employees"); // redirect to employee list
+    if (!id) return;
+
+    deleteEmployeeById(id)
+      .then(() => {
+        navigate("/employees");
       })
       .catch((error) => {
         console.error("Error deleting employee:", error);
@@ -40,104 +64,111 @@ const EmployeeDetails = () => {
     setShowModal(false);
   };
 
-  return (
-    <div className="container py-4">
-      <div className="card shadow-sm">
-        <div className="card-body">
-          <h1 className="card-title text-center mb-4">Employee Details</h1>
+  const formattedDate =
+    employee && new Date(employee.dateOfJoining).toLocaleDateString();
 
-          {/* Loading state */}
+  const formattedSalary =
+    employee &&
+    employee.salary.toLocaleString(undefined, { maximumFractionDigits: 0 });
+
+  return (
+    <Container className="py-4">
+      <Card className="shadow-sm border-0">
+        <Card.Body className="p-4 p-md-5">
+          <Card.Title className="text-center mb-4 fs-3">
+            Employee Details
+          </Card.Title>
+
           {isLoading && (
             <div className="d-flex justify-content-center py-4">
-              <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
+              <Spinner animation="border" role="status" variant="secondary">
+                <span className="visually-hidden">Loading employee...</span>
+              </Spinner>
             </div>
           )}
 
-          {/* Error state */}
-          {isError && (
-            <div className="alert alert-danger text-center" role="alert">
-              Failed to load employee details. Please try again.
-              <button className="btn btn-danger mt-3">Retry</button>
-            </div>
+          {isError && !isLoading && (
+            <Alert variant="danger" className="text-center">
+              <p className="mb-3">
+                Failed to load employee details. Please try again.
+              </p>
+              <Button variant="outline-danger" size="sm" onClick={fetchEmployee}>
+                Retry
+              </Button>
+            </Alert>
           )}
 
-          {/* Positive state */}
-          {!isLoading && !isError && (
-            <div className="list-group">
-              <div className="list-group-item">
-                <strong>Name:</strong> {employee.firstName} {employee.lastName}
-              </div>
-              <div className="list-group-item">
-                <strong>Email:</strong> {employee.email}
-              </div>
-              <div className="list-group-item">
-                <strong>Position:</strong> {employee.position}
-              </div>
-              <div className="list-group-item">
-                <strong>Department:</strong> {employee.department}
-              </div>
-              <div className="list-group-item">
-                <strong>Salary:</strong> ${employee.salary}
-              </div>
-              <div className="list-group-item">
-                <strong>Date of Joining:</strong> {employee.dateOfJoining}
-              </div>
-            </div>
-          )}
+          {!isLoading && !isError && employee && (
+            <>
+              <ListGroup className="mb-4">
+                <ListGroup.Item>
+                  <strong>Name:</strong> {employee.firstName}{" "}
+                  {employee.lastName}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Email:</strong> {employee.email}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Position:</strong> {employee.position}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Department:</strong> {employee.department}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Salary:</strong> ${formattedSalary}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Date of Joining:</strong> {formattedDate}
+                </ListGroup.Item>
+              </ListGroup>
 
-          {/* Action buttons */}
-          <div className="mt-4">
-            <Link to={`/employees/${id}/edit`}>
-              <button className="btn btn-primary w-100 mb-2">Edit Employee</button>
-            </Link>
-            <button
-              onClick={() => setShowModal(true)}
-              className="btn btn-danger w-100"
-            >
-              Delete Employee
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Confirmation Modal */}
-      {showModal && (
-        <div className="modal fade show d-block" tabIndex={-1}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Confirm Deletion</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setShowModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p>
-                  Are you sure you want to delete this employee? This action
-                  cannot be undone.
-                </p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowModal(false)}
+              <div className="d-flex flex-column flex-md-row gap-2">
+                <Button
+                  as={Link}
+                  to={`/employees/${id}/edit`}
+                  variant="secondary"
+                  className="w-100"
                 >
-                  Cancel
-                </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
-                  Delete
-                </button>
+                  Edit Employee
+                </Button>
+                <Button
+                  variant="danger"
+                  className="w-100"
+                  onClick={() => setShowModal(true)}
+                >
+                  Delete Employee
+                </Button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+            </>
+          )}
+        </Card.Body>
+      </Card>
+
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        centered
+        backdrop="static"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this employee? This action cannot be
+          undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
   );
 };
 
 export default EmployeeDetails;
+

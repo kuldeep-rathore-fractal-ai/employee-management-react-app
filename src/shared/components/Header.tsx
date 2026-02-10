@@ -3,21 +3,29 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <Navbar sticky="top" className="shadow" expand="lg">
+    <Navbar
+      bg="light"
+      variant="light"
+      expand="lg"
+      sticky="top"
+      className="shadow-sm border-bottom"
+    >
       <Container>
-        <Navbar.Brand href="#"><b>Employee Management System</b></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Brand as={NavLink} to="/" className="fw-semibold text-dark">
+          Employee Management System
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="main-navbar" />
+        <Navbar.Collapse id="main-navbar">
           <Nav className="ms-auto">
-            <NavLink to="/" end className="nav-link">
+            <Nav.Link as={NavLink} to="/" end>
               Dashboard
-            </NavLink>
-            <NavLink to="/about" className="nav-link">
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/about">
               About Us
-            </NavLink>
-            <NavLink to="/contact" className="nav-link">
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact">
               Contact Us
-            </NavLink>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

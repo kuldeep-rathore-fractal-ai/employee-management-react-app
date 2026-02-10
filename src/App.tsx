@@ -3,23 +3,25 @@ import Header from './shared/components/Header';
 import HomePage from './pages/HomePage';
 import { Route, Routes } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
-import EmployeePage from './pages/employees/EmployeePage';
-import AddEmployee from './modules/components/Employee/AddEmployee';
-import EmployeeDetails from './modules/components/Employee/EmployeeDetails';
+import EmployeeListPage from './pages/employees/EmployeeListPage';
+import EmployeeCreatePage from './pages/employees/EmployeeCreatePage';
+import EmployeeDetailsPage from './pages/employees/EmployeeDetailsPage';
+import EmployeeEditPage from './pages/employees/EmployeeEditPage';
 
 const App = () => (
   <>
     <Header />
-     <main>
-        {/* Routing Configuration */}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/employees" element={<EmployeePage />} />
-          <Route path="/employees/:id" element={<EmployeeDetails />} />
-          <Route path="/employees/add" element={<AddEmployee />} />
-        </Routes>
-      </main>
+    <main>
+      {/* Routing Configuration */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/employees" element={<EmployeeListPage />} />
+        <Route path="/employees/:id" element={<EmployeeDetailsPage />} />
+        <Route path="/employees/add" element={<EmployeeCreatePage />} />
+        <Route path="/employees/:id/edit" element={<EmployeeEditPage />} />
+      </Routes>
+    </main>
     <Footer />
   </>
 );
