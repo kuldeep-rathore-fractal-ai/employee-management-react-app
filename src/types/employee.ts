@@ -8,4 +8,3 @@ export interface Employee {
   salary: number;
   dateOfJoining: string;
 }
-
