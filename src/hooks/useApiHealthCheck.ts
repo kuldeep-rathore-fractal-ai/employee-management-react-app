@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import apiClient from "../../services/apiClient";
+import apiClient from "../api/apiClient";
 
-export type ApiStatus = {
+export type ApiHealth = {
   isApiUp: boolean;
   lastCheckedAt: number | null;
   errorMessage?: string;
 };
 
-type UseApiStatusOptions = {
+type UseApiHealthOptions = {
   /**
    * Endpoint to ping, relative to API baseURL.
    * Default: "/employees" (already used by the app).
@@ -19,14 +19,14 @@ type UseApiStatusOptions = {
   pollIntervalMs?: number;
 };
 
-export function useApiStatus(options: UseApiStatusOptions = {}): ApiStatus {
+export function useApiHealthCheck(options: UseApiHealthOptions = {}): ApiHealth {
   const {
     path = "/",
     timeoutMs = 2500,
     pollIntervalMs = 30_000,
   } = options;
 
-  const [status, setStatus] = useState<ApiStatus>({
+  const [status, setStatus] = useState<ApiHealth>({
     isApiUp: true,
     lastCheckedAt: null,
   });

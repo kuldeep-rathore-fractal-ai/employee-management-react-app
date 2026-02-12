@@ -1,11 +1,7 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
-type HeaderProps = {
-  apiDown?: boolean;
-};
-
-const Header = ({ apiDown }: HeaderProps) => {
+const Header = () => {
   return (
     <Navbar
       bg="light"
@@ -13,7 +9,6 @@ const Header = ({ apiDown }: HeaderProps) => {
       expand="lg"
       sticky="top"
       className="shadow-sm border-bottom"
-      style={apiDown ? { top: "var(--api-bar-height)" } : undefined}
     >
       <Container>
         <Navbar.Brand as={NavLink} to="/" className="fw-semibold text-dark">

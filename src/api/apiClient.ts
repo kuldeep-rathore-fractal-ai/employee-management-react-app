@@ -5,7 +5,12 @@ const API_BASE_URL =
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 5000,
 });
+
+// request interceptor to add auth token if needed
+
+// response interceptor to handle global responses
 
 export default apiClient;
 

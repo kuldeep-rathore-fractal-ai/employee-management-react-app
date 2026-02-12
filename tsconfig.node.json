@@ -6,6 +6,8 @@
     "module": "ESNext",
     "types": ["node"],
     "skipLibCheck": true,
+    /* Path mapping */
+    "baseUrl": "src",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

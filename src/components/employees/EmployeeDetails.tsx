@@ -9,11 +9,11 @@ import {
   Alert,
   Modal,
 } from "react-bootstrap";
-import type { Employee } from "../../../types/employee";
+import type { Employee } from "../../models/employee";
 import {
   deleteEmployeeById,
   getEmployeeById,
-} from "../../../services/employeeService";
+} from "../../services/employeeService";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
@@ -123,8 +123,8 @@ const EmployeeDetails = () => {
               </ListGroup>
 
               <div className="d-flex flex-column flex-md-row gap-2">
-                <Button
-                  as={Link}
+                <Button 
+                  as={Link as any}
                   to={`/employees/${id}/edit`}
                   variant="secondary"
                   className="w-100"

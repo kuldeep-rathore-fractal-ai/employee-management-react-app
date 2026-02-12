@@ -1,5 +1,5 @@
-import apiClient from "./apiClient";
-import type { Employee } from "../types/employee";
+import apiClient from "../api/apiClient";
+import type { Employee } from "../models/employee";
 
 const EMPLOYEES_PATH = "/employees";
 

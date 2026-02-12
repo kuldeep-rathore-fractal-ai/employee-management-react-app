@@ -10,32 +10,24 @@ import {
   Alert,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { createEmployee } from "../../../services/employeeService";
+import { createEmployee } from "../../services/employeeService";
+import type { Employee } from "../../models/employee";
 
-type EmployeeFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  position: string;
-  department: string;
-  salary: number;
-  dateOfJoining: string;
-};
 
-const AddEmployee = () => {
+const EmployeeCreate = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<EmployeeFormData>({
+  } = useForm<Employee>({
     mode: "onBlur",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const onSubmit = (formData: EmployeeFormData) => {
+  const onSubmit = (formData: Employee) => {
     setIsLoading(true);
 
     createEmployee(formData as any)
@@ -240,4 +232,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default EmployeeCreate;

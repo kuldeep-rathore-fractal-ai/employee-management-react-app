@@ -14,20 +14,11 @@ import {
 import {
   getEmployeeById,
   updateEmployeeById,
-} from "../../../services/employeeService";
+} from "../../services/employeeService";
+import type { Employee } from "../../models/employee";
 
-type EmployeeFormData = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  position: string;
-  department: string;
-  salary: number;
-  dateOfJoining: string;
-};
-
-const UpdateEmployee = () => {
+ 
+const EmployeeEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -36,7 +27,7 @@ const UpdateEmployee = () => {
     handleSubmit,
     reset,
     formState: { isSubmitting },
-  } = useForm<EmployeeFormData>({
+  } = useForm<Employee>({
     mode: "onBlur",
   });
 
@@ -57,7 +48,7 @@ const UpdateEmployee = () => {
     getEmployeeById(id)
       .then((data) => {
         reset({
-          ...(data as EmployeeFormData),
+          ...(data as Employee),
           dateOfJoining: data.dateOfJoining
             ? new Date(data.dateOfJoining).toISOString().substring(0, 10)
             : "",
@@ -72,7 +63,7 @@ const UpdateEmployee = () => {
       });
   }, [id, reset]);
 
-  const onSubmit = (formData: EmployeeFormData) => {
+  const onSubmit = (formData: Employee) => {
     setIsError(false);
     setIsUpdated(false);
 
@@ -259,5 +250,5 @@ const UpdateEmployee = () => {
   );
 };
 
-export default UpdateEmployee;
+export default EmployeeEdit;
 

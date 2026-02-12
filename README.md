@@ -20,33 +20,32 @@ employee-management-react-app/
 │   ├── App.css
 │   ├── index.css
 │   ├── main.tsx
-│   ├── modules/
-│   │   └── components/
-│   │       └── Employee/
-│   │           ├── EmployeeCard.tsx
-│   │           ├── EmployeeCreate.tsx
-│   │           ├── EmployeeDetails.tsx
-│   │           └── EmployeeEdit.tsx
+│   ├── api/
+│   │   ├── apiClient.ts
+│   ├── components/
+│   │   ├── employees/
+│   │   │   ├── EmployeeCard.tsx
+│   │   │   ├── EmployeeCreate.tsx
+│   │   │   ├── EmployeeDetails.tsx
+│   │   │   └── EmployeeEdit.tsx
+│   │   └── shared/
+│   │       ├── ApiHealthCheckStatusBar.tsx
+│   │       ├── Footer.tsx
+│   │       └── Header.tsx
+│   ├── hooks/
+│   │   └── useApiHealthCheck.ts
+│   ├── models/
+│   │   └── employee.ts
 │   ├── pages/
 │   │   ├── AboutPage.tsx
 │   │   ├── HomePage.tsx
 │   │   └── employees/
-│   │       ├── EmployeeCreatePage.tsx
-│   │       ├── EmployeeDetailsPage.tsx
-│   │       ├── EmployeeEditPage.tsx
-│   │       └── EmployeeListPage.tsx
+│   │       ├── EmployeeListPage.tsx
+│   │       └── index.ts
+│   ├── routes/
+│   │   └── AppRoutes.tsx
 │   ├── services/
-│   │   ├── apiClient.ts
 │   │   └── employeeService.ts
-│   ├── shared/
-│   │   ├── components/
-│   │   │   ├── ApiStatusBar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── Header.tsx
-│   │   └── hooks/
-│   │       └── useApiStatus.ts
-│   └── types/
-│       └── employee.ts
 ├── index.html
 ├── package.json
 ├── tsconfig.json

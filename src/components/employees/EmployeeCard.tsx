@@ -1,12 +1,7 @@
 import { Card, ListGroup, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import type { Employee } from '../../../types/employee';
 
-type EmployeeCardProps = {
-    employee: Employee;
-};
-
-const EmployeeCard = ({ employee }: EmployeeCardProps) => {
+const EmployeeCard = ({ employee }: any) => {
   return (
     <Link
       to={`/employees/${employee._id}`}
