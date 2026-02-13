@@ -236,7 +236,7 @@ const EmployeeEdit = () => {
 
               <Button
                 type="submit"
-                className="mt-4 w-100 fw-semibold"
+                className="mt-4 w-100 fw-semibold btn-success"
                 variant="secondary"
                 disabled={isSubmitting}
               >

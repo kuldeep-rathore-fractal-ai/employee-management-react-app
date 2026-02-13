@@ -47,7 +47,7 @@ const EmployeeListPage = () => {
                 className="mb-4 flex-wrap gap-2 justify-content-between align-items-center"
             >
                 <div>
-                    <h1 className="h3 fw-bold mb-1">Employees</h1>
+                    <h1 className="h3 fw-bold mb-1 dark">Employees</h1>
                     <p className="text-muted mb-0">
                         Browse, manage, and keep your employee records up to date.
                     </p>
@@ -58,6 +58,7 @@ const EmployeeListPage = () => {
                         to="/employees/add"
                         variant="secondary"
                         size="sm"
+                        className="btn btn-success"
                     >
                         Add New Employee
                     </Button>
@@ -93,10 +94,12 @@ const EmployeeListPage = () => {
                 </Alert>
             )}
 
+            <hr />
+
             {hasEmployees && (
                 <Row className="g-4">
                     {employees.map((employee) => (
-                        <Col xs={12} md={6} lg={4} xl={3} key={employee._id}>
+                        <Col xs={12} md={6} lg={4} xl={4} key={employee._id}>
                             <EmployeeCard employee={employee} />
                         </Col>
                     ))}

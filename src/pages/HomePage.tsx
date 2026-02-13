@@ -22,7 +22,7 @@ const Home = () => {
               <Button
                 as={NavLink as any}
                 to="/employees"
-                variant="secondary"
+                variant="primary"
                 size="sm"
                 className="px-3"
               >
